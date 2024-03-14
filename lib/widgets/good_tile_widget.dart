@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:justhabit/providers/main_provider.dart';
+import 'package:justhabit/providers/good_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -16,7 +16,7 @@ class GoodTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Consumer<MainProvider>(
+    return Consumer<GoodProvider>(
         builder: (context, data, _){
           return Container(
             width: size.width,

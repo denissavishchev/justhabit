@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
-import 'package:justhabit/providers/main_provider.dart';
+import 'package:justhabit/providers/good_provider.dart';
 import 'package:justhabit/widgets/icon_svg_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class GoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MainProvider>(
+    return Consumer<GoodProvider>(
         builder: (context, data, _){
           data.fetchUsers();
           return Scaffold(

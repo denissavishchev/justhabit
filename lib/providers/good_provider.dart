@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:justhabit/pages/bad_page.dart';
+import 'package:justhabit/widgets/actions_button_widget.dart';
 import '../databasehelper.dart';
 import '../pages/good_page.dart';
+import '../widgets/days_button_widget.dart';
+import '../widgets/text_field_widget.dart';
 
-class MainProvider with ChangeNotifier {
+class GoodProvider with ChangeNotifier {
 
   PageController mainPageController = PageController(initialPage: 0);
   int activePage = 0;
+  Days selectedDays = Days.one;
+  Done selectedActions = Done.one;
 
   List<Map<String, dynamic>> dataList = [];
   final nameController = TextEditingController();
@@ -64,6 +69,33 @@ class MainProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void selectDay(int days){
+    switch(days){
+      case 30:
+        selectedDays = Days.one;
+        break;
+      case 60:
+        selectedDays = Days.two;
+        break;
+    }
+    notifyListeners();
+  }
+
+  void selectAction(int action){
+    switch(action){
+      case 1:
+        selectedActions = Done.one;
+        break;
+      case 2:
+        selectedActions = Done.two;
+        break;
+      case 3:
+        selectedActions = Done.three;
+        break;
+    }
+    notifyListeners();
+  }
+
   Future addHabit(context) {
     return showModalBottomSheet(
         context: context,
@@ -83,23 +115,19 @@ class MainProvider with ChangeNotifier {
                 )
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextFormField(
+                TextFieldWidget(
                   controller: nameController,
-                  decoration: const InputDecoration(hintText: 'Name'),
+                  hintText: 'Name',
                 ),
-                TextFormField(
+                TextFieldWidget(
+                  height: 90,
                   controller: commentController,
-                  decoration: const InputDecoration(hintText: 'Comment'),
+                  hintText: 'Comment',
                 ),
-                TextFormField(
-                  controller: daysController,
-                  decoration: const InputDecoration(hintText: 'Days'),
-                ),
-                TextFormField(
-                  controller: actionController,
-                  decoration: const InputDecoration(hintText: 'Action'),
-                ),
+                const DaysButtonWidget(),
+                const ActionsButtonWidget(),
                 TextFormField(
                   controller: colorController,
                   decoration: const InputDecoration(hintText: 'Color'),
@@ -108,18 +136,38 @@ class MainProvider with ChangeNotifier {
                   controller: iconController,
                   decoration: const InputDecoration(hintText: 'Icon'),
                 ),
-                IconButton(
-                  onPressed: (){
+                GestureDetector(
+                  onTap: (){
                     saveData();
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.add),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: kGreen),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                        gradient: LinearGradient(
+                            colors: [
+                              kGreen.withOpacity(0.2),
+                              kYellow.withOpacity(0.1)
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            stops: const [0, 1]
+                        )
+                    ),
+                    child: Center(child: Text('Begin',
+                      style: kOrangeStyle.copyWith(
+                          color: kOrange.withOpacity(0.5)),)),
+                  ),
                 )
               ],
             ),
           );
         });
   }
-
-
 }
+
+
+

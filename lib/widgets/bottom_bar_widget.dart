@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:provider/provider.dart';
-import '../providers/main_provider.dart';
+import '../providers/good_provider.dart';
 import 'icon_svg_widget.dart';
 
 
@@ -12,7 +12,7 @@ class BottomNavBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Consumer<MainProvider>(builder: (context, data, _){
+    return Consumer<GoodProvider>(builder: (context, data, _){
       return Container(
         width: size.width,
         color: kGreen,

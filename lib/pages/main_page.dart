@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:justhabit/widgets/icon_svg_widget.dart';
 import 'package:provider/provider.dart';
-import '../providers/main_provider.dart';
+import '../providers/good_provider.dart';
 import '../widgets/bottom_bar_widget.dart';
 
 class MainPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Consumer<MainProvider>
+        body: Consumer<GoodProvider>
           (builder: (context, data, _){
           return SafeArea(
             child: Column(

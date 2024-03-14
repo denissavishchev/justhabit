@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justhabit/pages/main_page.dart';
-import 'package:justhabit/providers/main_provider.dart';
+import 'package:justhabit/providers/good_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<MainProvider>(create: (_) => MainProvider()),
+        ChangeNotifierProvider<GoodProvider>(create: (_) => GoodProvider()),
       ],
       builder: (context, child){
         return ScreenUtilInit(
