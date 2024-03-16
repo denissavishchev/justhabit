@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:justhabit/widgets/icon_svg_widget.dart';
@@ -20,7 +19,7 @@ class MainPage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: size.height * 0.08,
+                  height: size.height * 0.06,
                   width: size.width,
                   color: kGreen,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -43,7 +42,7 @@ class MainPage extends StatelessWidget {
                       }),
                 ),
                 SizedBox(
-                  height: size.height * 0.1,
+                  height: size.height * 0.075,
                     child: const BottomNavBarWidget()),
               ],
             ),

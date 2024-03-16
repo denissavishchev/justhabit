@@ -17,7 +17,7 @@ class GoodPage extends StatelessWidget {
             backgroundColor: kGrey,
             floatingActionButton: FloatingActionButton(
               backgroundColor: kGreen,
-              foregroundColor: kOrange,
+              foregroundColor: kBrown,
               onPressed: () => data.addHabit(context),
               child: const IconSvgWidget(icon: 'add', color: kBrown,),
             ),

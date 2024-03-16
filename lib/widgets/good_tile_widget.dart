@@ -40,14 +40,40 @@ class GoodTileWidget extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        const SizedBox(height: 12,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(dataList[dataIndex]['comment']),
-                            Text(dataList[dataIndex]['name']),
-                            Text('Days: ${dataList[dataIndex]['days'] ~/ 5}/${dataList[dataIndex]['days']}')
-                          ],
+                        const SizedBox(height: 4,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  if(dataList[dataIndex]['comment'] != ''){
+                                    data.showPopDialog(
+                                        context, 'Comment', dataList[dataIndex]['comment']);
+                                  }
+                                  },
+                                 child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                                    border: Border.all(width: 1, color:
+                                    dataList[dataIndex]['comment'] != ''
+                                        ? kGreen.withOpacity(0.6)
+                                        : Colors.transparent,),
+                                  ),
+                                  width: 24,
+                                  height: 20,
+                                  child: Icon(Icons.comment_outlined, size: 18,
+                                    color: dataList[dataIndex]['comment'] != ''
+                                        ? kBrown : Colors.transparent,),
+                                ),
+                              ),
+                              Text(dataList[dataIndex]['name'], style: kGreenStyle,),
+                              Text('${dataList[dataIndex]['days'] ~/ 5}/${dataList[dataIndex]['days']}',
+                                style: kGreenStyleSmall,)
+                            ],
+                          ),
                         ),
                         SizedBox(
                           width: 240,
@@ -73,25 +99,30 @@ class GoodTileWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 80,
-                    decoration: const BoxDecoration(
-                        color: kBrown,
-                        border: Border(left: BorderSide(width: 1, color: kYellow))
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: List.generate(dataList[dataIndex]['actions'], (index) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 1),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              border: Border.all(width: 1, color: kGreen)
-                            ),
-                              child: Icon(Icons.check_box, color: kGrey,));
-                        }),
+                  GestureDetector(
+                    onTap: (){
+                      print(dataList[dataIndex]['actions']);
+                    },
+                    child: Container(
+                      width: 80,
+                      decoration: const BoxDecoration(
+                          color: kBrown,
+                          border: Border(left: BorderSide(width: 1, color: kYellow))
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(dataList[dataIndex]['actions'], (index) {
+                            return Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                border: Border.all(width: 1, color: kGreen)
+                              ),
+                                child: const Icon(Icons.check_box, color: kGrey,));
+                          }),
+                        ),
                       ),
                     ),
                   )

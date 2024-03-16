@@ -33,7 +33,7 @@ class BottomNavBarWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 40,
+                          height: 24,
                           child: IconSvgWidget(
                             icon: data.icon[index],
                             padding: 0,
@@ -42,8 +42,8 @@ class BottomNavBarWidget extends StatelessWidget {
                         ),
                         Text(data.names[index],
                           style: data.activePage == index
-                              ? kOrangeStyleSmall.copyWith(color: kBrown)
-                              : kWhiteStyleSmall,)
+                              ? kBrownStyleSmall
+                              : kWhiteStyleSmall. copyWith(fontWeight: FontWeight.normal),)
                       ],
                     )
                 ),

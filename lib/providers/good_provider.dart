@@ -139,7 +139,7 @@ class GoodProvider with ChangeNotifier {
                   hintText: 'Name',
                 ),
                 TextFieldWidget(
-                  height: 90,
+                  height: 80,
                   controller: commentController,
                   hintText: 'Comment',
                 ),
@@ -172,6 +172,22 @@ class GoodProvider with ChangeNotifier {
                 )
               ],
             ),
+          );
+        });
+  }
+
+  void showPopDialog(context, String title, String content){
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Ok'))
+            ],
           );
         });
   }

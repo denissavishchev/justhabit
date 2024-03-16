@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -19,8 +18,8 @@ class ButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        width: 35,
-        height: 35,
+        width: 28,
+        height: 28,
         decoration: BoxDecoration(
             color: kWhite,
             gradient: isPressed ? LinearGradient(
@@ -39,8 +38,8 @@ class ButtonWidget extends StatelessWidget {
         ),
         child: Center(child: Text(text,
           style: isPressed
-              ? kGreenStyle
-              : kGreenStyle.copyWith(color: kGreen.withOpacity(0.5)),)),
+              ? kGreenStyleSmall
+              : kGreenStyleSmall.copyWith(color: kGreen.withOpacity(0.5)),)),
       ),
     );
   }

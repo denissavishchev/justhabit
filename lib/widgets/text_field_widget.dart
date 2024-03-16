@@ -6,7 +6,7 @@ class TextFieldWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    this.height = 50,
+    this.height = 40,
   });
 
   final TextEditingController controller;
