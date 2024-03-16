@@ -11,8 +11,9 @@ const kBrown = Color(0xffc8ad90);
 
 final kWhiteStyle = TextStyle(fontSize: 22.sp, color: kWhite, fontWeight: FontWeight.bold);
 final kGreenStyle = TextStyle(fontSize: 22.sp, color: kGreen, fontWeight: FontWeight.bold);
-final kOrangeStyle = TextStyle(fontSize: 22.sp, color: kOrange.withOpacity(0.8), fontWeight: FontWeight.bold);
+final kBrownStyle = TextStyle(fontSize: 22.sp, color: kBrown, fontWeight: FontWeight.bold);
 final kOrangeStyleSmall = TextStyle(fontSize: 13.sp, color: kOrange.withOpacity(0.8), fontWeight: FontWeight.bold);
 final kWhiteStyleSmall = TextStyle(fontSize: 13.sp, color: kWhite, fontWeight: FontWeight.bold);
 final kWhiteStyleBig = TextStyle(fontSize: 26.sp, color: kWhite, fontWeight: FontWeight.bold);
 final kOrangeStyleBig = TextStyle(fontSize: 26.sp, color: kOrange.withOpacity(0.7), fontWeight: FontWeight.bold);
+final kBrownStyleBig = TextStyle(fontSize: 26.sp, color: kBrown, fontWeight: FontWeight.bold);

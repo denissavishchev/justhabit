@@ -19,20 +19,22 @@ class DatabaseHelper{
         actions INTEGER,
         color TEXT,
         icon TEXT,
+        unit TEXT,
         date TEXT
       )
     ''');
   }
 
-  static Future<int> insertUser(String name, String comment, int days, int actions, String color, String icon) async{
+  static Future<int> insertUser(String name, String comment, int days, int actions) async{
     final db = await _openDatabase();
     final data = {
       'name' : name,
       'comment' : comment,
       'days' : days,
       'actions' : actions,
-      'color' : color,
-      'icon' : icon,
+      'color' : '',
+      'icon' : '',
+      'unit' : '',
       'date' : DateTime.now().toString(),
     };
     return await db.insert('good', data);
@@ -62,6 +64,12 @@ class DatabaseHelper{
   static Future<int> updateData(int id, Map<String, dynamic> data) async{
     final db = await _openDatabase();
     return await db.update('good', data, where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<void> deleteDatabase() async{
+    final databasePath = await getDatabasesPath();
+    final path = join(databasePath, 'database.db');
+    return databaseFactory.deleteDatabase(path);
   }
 
 }

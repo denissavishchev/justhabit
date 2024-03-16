@@ -11,16 +11,14 @@ class GoodProvider with ChangeNotifier {
 
   PageController mainPageController = PageController(initialPage: 0);
   int activePage = 0;
-  Days selectedDays = Days.one;
+  Days selectedDays = Days.fifteen;
   Done selectedActions = Done.one;
+  int totalDays = 15;
+  int totalActions = 1;
 
   List<Map<String, dynamic>> dataList = [];
   final nameController = TextEditingController();
   final commentController = TextEditingController();
-  final daysController = TextEditingController();
-  final actionController = TextEditingController();
-  final colorController = TextEditingController();
-  final iconController = TextEditingController();
 
   final List pages = [
     const GoodPage(),
@@ -49,18 +47,17 @@ class GoodProvider with ChangeNotifier {
     await DatabaseHelper.insertUser(
       nameController.text,
       commentController.text,
-      int.parse(daysController.text),
-      int.parse(actionController.text),
-      colorController.text,
-      iconController.text
+      totalDays,
+      totalActions
     );
     fetchUsers();
     nameController.clear();
     commentController.clear();
-    daysController.clear();
-    actionController.clear();
-    colorController.clear();
-    iconController.clear();
+    totalDays = 15;
+    totalActions = 1;
+    selectedDays = Days.fifteen;
+    selectedActions = Done.one;
+    notifyListeners();
   }
 
   void fetchUsers()async {
@@ -69,13 +66,30 @@ class GoodProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void delete(int docId) async{
+    await DatabaseHelper.deleteData(docId);
+    List<Map<String, dynamic>> updatedData = await DatabaseHelper.getData();
+    dataList = updatedData;
+    notifyListeners();
+  }
+
   void selectDay(int days){
     switch(days){
+      case 15:
+        selectedDays = Days.fifteen;
+        totalDays = 15;
+        break;
       case 30:
-        selectedDays = Days.one;
+        selectedDays = Days.thirty;
+        totalDays = 30;
+        break;
+      case 45:
+        selectedDays = Days.fortyFive;
+        totalDays = 45;
         break;
       case 60:
-        selectedDays = Days.two;
+        selectedDays = Days.sixty;
+        totalDays = 60;
         break;
     }
     notifyListeners();
@@ -85,12 +99,15 @@ class GoodProvider with ChangeNotifier {
     switch(action){
       case 1:
         selectedActions = Done.one;
+        totalActions = 1;
         break;
       case 2:
         selectedActions = Done.two;
+        totalActions = 2;
         break;
       case 3:
         selectedActions = Done.three;
+        totalActions = 3;
         break;
     }
     notifyListeners();
@@ -128,14 +145,6 @@ class GoodProvider with ChangeNotifier {
                 ),
                 const DaysButtonWidget(),
                 const ActionsButtonWidget(),
-                TextFormField(
-                  controller: colorController,
-                  decoration: const InputDecoration(hintText: 'Color'),
-                ),
-                TextFormField(
-                  controller: iconController,
-                  decoration: const InputDecoration(hintText: 'Icon'),
-                ),
                 GestureDetector(
                   onTap: (){
                     saveData();
@@ -157,9 +166,8 @@ class GoodProvider with ChangeNotifier {
                             stops: const [0, 1]
                         )
                     ),
-                    child: Center(child: Text('Begin',
-                      style: kOrangeStyle.copyWith(
-                          color: kOrange.withOpacity(0.5)),)),
+                    child: Center(child: Text('Start',
+                      style: kGreenStyle,)),
                   ),
                 )
               ],

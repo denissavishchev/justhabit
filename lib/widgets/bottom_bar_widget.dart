@@ -38,11 +38,11 @@ class BottomNavBarWidget extends StatelessWidget {
                             icon: data.icon[index],
                             padding: 0,
                             color: data.activePage == index
-                                ? kOrange.withOpacity(0.6) : kWhite,),
+                                ? kBrown : kWhite,),
                         ),
                         Text(data.names[index],
                           style: data.activePage == index
-                              ? kOrangeStyleSmall.copyWith(color: kOrange.withOpacity(0.8))
+                              ? kOrangeStyleSmall.copyWith(color: kBrown)
                               : kWhiteStyleSmall,)
                       ],
                     )

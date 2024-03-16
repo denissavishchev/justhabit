@@ -3,7 +3,6 @@ import 'package:justhabit/constants.dart';
 import 'package:justhabit/providers/good_provider.dart';
 import 'package:justhabit/widgets/icon_svg_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/good_tile_widget.dart';
 
 class GoodPage extends StatelessWidget {
@@ -20,10 +19,10 @@ class GoodPage extends StatelessWidget {
               backgroundColor: kGreen,
               foregroundColor: kOrange,
               onPressed: () => data.addHabit(context),
-              child: IconSvgWidget(icon: 'add', color: kOrange.withOpacity(0.6),),
+              child: const IconSvgWidget(icon: 'add', color: kBrown,),
             ),
             body: ListView.builder(
-                padding: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.only(bottom: 100),
                 itemCount: data.dataList.length,
                 itemBuilder: (context, index){
                   return GoodTileWidget(dataList: data.dataList, dataIndex: index,);

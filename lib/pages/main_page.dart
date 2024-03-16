@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const SizedBox(width: 60,),
-                      Text('Just habit', style: kOrangeStyleBig,),
+                      Text('Just habit', style: kBrownStyleBig,),
                       const IconSvgWidget(icon: 'gear', color: kWhite, padding: 12,)
                     ],
                   ),
