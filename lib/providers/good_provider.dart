@@ -18,7 +18,8 @@ class GoodProvider with ChangeNotifier {
   int totalDays = 15;
   int totalActions = 1;
   List<String> progressDays = [];
-  Map<String, String> progressMap = {};
+  Map<String, String> progressDaysMap = {};
+  Map<String, String> progressActionsMap = {};
 
   List<Map<String, dynamic>> dataList = [];
   final nameController = TextEditingController();
@@ -53,18 +54,27 @@ class GoodProvider with ChangeNotifier {
       progressDays.add(DateTime.now().add(Duration(days: i)).toString().split(' ')[0]);
     }
     for(var value in progressDays){
-      progressMap.addAll({value.toString(): 'false'});
+      progressDaysMap.addAll({value.toString(): 'false'});
+    }
+  }
+
+  getProgressActions(){
+    for (int i = 0; i < totalActions; i++){
+      progressActionsMap.addAll({i.toString() : 'false'});
     }
   }
 
   void saveData() async{
     getProgressDays();
+    getProgressActions();
     await DatabaseHelper.insertUser(
       nameController.text,
       commentController.text,
       totalDays,
       totalActions,
-      json.encode(progressMap)
+      json.encode(progressDaysMap),
+      json.encode(progressActionsMap)
+
     );
     fetchUsers();
     nameController.clear();

@@ -48,11 +48,12 @@ class GoodTileWidget extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  print('ProgressPrint${dataList[dataIndex]['progress']}');
+                                  print('ProgressPrint${dataList[dataIndex]['progressDays']}');
+                                  print('ProgressPrint${dataList[dataIndex]['progressActions']}');
                                   if(dataList[dataIndex]['comment'] != ''){
                                     data.showPopDialog(
                                         context, 'Comment', dataList[dataIndex]['comment']);
-                                  }
+                                    }
                                   },
                                  child: Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 2),
