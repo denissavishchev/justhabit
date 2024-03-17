@@ -48,6 +48,7 @@ class GoodTileWidget extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  print('ProgressPrint${dataList[dataIndex]['progress']}');
                                   if(dataList[dataIndex]['comment'] != ''){
                                     data.showPopDialog(
                                         context, 'Comment', dataList[dataIndex]['comment']);

@@ -20,12 +20,13 @@ class DatabaseHelper{
         color TEXT,
         icon TEXT,
         unit TEXT,
+        progress TEXT,
         date TEXT
       )
     ''');
   }
 
-  static Future<int> insertUser(String name, String comment, int days, int actions) async{
+  static Future<int> insertUser(String name, String comment, int days, int actions, String progress) async{
     final db = await _openDatabase();
     final data = {
       'name' : name,
@@ -35,6 +36,7 @@ class DatabaseHelper{
       'color' : '',
       'icon' : '',
       'unit' : '',
+      'progress' : progress,
       'date' : DateTime.now().toString(),
     };
     return await db.insert('good', data);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:justhabit/pages/bad_page.dart';
@@ -15,6 +17,8 @@ class GoodProvider with ChangeNotifier {
   Done selectedActions = Done.one;
   int totalDays = 15;
   int totalActions = 1;
+  List<String> progressDays = [];
+  Map<String, String> progressMap = {};
 
   List<Map<String, dynamic>> dataList = [];
   final nameController = TextEditingController();
@@ -43,12 +47,24 @@ class GoodProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void getProgressDays(){
+    final date = DateTime.now();
+    for(int i = 0; i <= (DateTime(date.year, date.month, date.day + totalDays)).difference(DateTime.now()).inDays; i++){
+      progressDays.add(DateTime.now().add(Duration(days: i)).toString().split(' ')[0]);
+    }
+    for(var value in progressDays){
+      progressMap.addAll({value.toString(): 'false'});
+    }
+  }
+
   void saveData() async{
+    getProgressDays();
     await DatabaseHelper.insertUser(
       nameController.text,
       commentController.text,
       totalDays,
-      totalActions
+      totalActions,
+      json.encode(progressMap)
     );
     fetchUsers();
     nameController.clear();
