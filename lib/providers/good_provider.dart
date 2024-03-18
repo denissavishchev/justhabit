@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:justhabit/constants.dart';
 import 'package:justhabit/pages/bad_page.dart';
@@ -17,9 +16,11 @@ class GoodProvider with ChangeNotifier {
   Done selectedActions = Done.one;
   int totalDays = 15;
   int totalActions = 1;
-  List<String> progressDays = [];
+  List<String> progressDay = [];
   Map<String, String> progressDaysMap = {};
   Map<String, String> progressActionsMap = {};
+  Map<String, dynamic> progressActions = {};
+  Map<String, dynamic> progressDays = {};
 
   List<Map<String, dynamic>> dataList = [];
   final nameController = TextEditingController();
@@ -48,13 +49,59 @@ class GoodProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+  void updateProgressState(context, String name, String comment, int days, int actions, int userId) async{
+      switch(actions){
+        case 3:
+          if(progressActions.values.elementAt(0) == 'true' &&
+              progressActions.values.elementAt(1) == 'true'){
+            progressActions.update('2', (value) => 'true');
+            progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '1');
+          }else if(progressActions.values.elementAt(0) == 'true'){
+            progressActions.update('1', (value) => 'true');
+            progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '2');
+          }else if(progressActions.values.elementAt(0) == 'false'){
+            progressActions.update('0', (value) => 'true');
+            progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '3');
+          }
+          break;
+        case 2:
+          if(progressActions.values.elementAt(0) == 'true'){
+            progressActions.update('1', (value) => 'true');
+            progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '1');
+          }else if(progressActions.values.elementAt(0) == 'false'){
+            progressActions.update('0', (value) => 'true');
+            progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '2');
+          }
+          break;
+        case 1:
+          progressActions.update('0', (value) => 'true');
+          progressDays.update(DateTime.now().toString().split(' ')[0], (value) => '1');
+    }
+
+    Map<String, dynamic> data = {
+      'name' : name,
+      'comment' : comment,
+      'days' : days,
+      'actions' : actions,
+      'color' : '',
+      'icon' : '',
+      'unit' : '',
+      'progressDays' : json.encode(progressDays),
+      'progressActions' : json.encode(progressActions),
+      'date' : DateTime.now().toString(),
+    };
+    await DatabaseHelper.updateData(userId, data);
+  }
+
   void getProgressDays(){
     final date = DateTime.now();
-    for(int i = 0; i <= (DateTime(date.year, date.month, date.day + totalDays)).difference(DateTime.now()).inDays; i++){
-      progressDays.add(DateTime.now().add(Duration(days: i)).toString().split(' ')[0]);
+    for(int i = 0; i <= (DateTime(date.year, date.month, date.day + totalDays))
+        .difference(DateTime.now()).inDays; i++){
+      progressDay.add(DateTime.now().add(Duration(days: i)).toString().split(' ')[0]);
     }
-    for(var value in progressDays){
-      progressDaysMap.addAll({value.toString(): 'false'});
+    for(var value in progressDay){
+      progressDaysMap.addAll({value.toString(): '0'});
     }
   }
 
@@ -83,6 +130,10 @@ class GoodProvider with ChangeNotifier {
     totalActions = 1;
     selectedDays = Days.fifteen;
     selectedActions = Done.one;
+    progressDay.clear();
+    progressDaysMap.clear();
+    progressActions.clear();
+    progressActionsMap.clear();
     notifyListeners();
   }
 
